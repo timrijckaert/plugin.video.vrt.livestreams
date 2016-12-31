@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="be.rijckaert.tim.kodiplayground"
+       name="This is just a playground to see what is possible in the world of Kodi addons"
+       version="0.0.1"
+       provider-name="Tim Rijckaert" />
