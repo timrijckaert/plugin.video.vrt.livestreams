@@ -1,9 +1,9 @@
 import xbmcaddon, xbmcgui
-from resources.lib.utils.debugger import startdebugger
+from resources.lib.utils.debugger import start_debugger
 
 debug = True
 if debug:
-    startdebugger()
+    start_debugger()
 
 addon = xbmcaddon.Addon()
 addonname = addon.getAddonInfo('name')
