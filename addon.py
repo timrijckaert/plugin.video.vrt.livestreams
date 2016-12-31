@@ -1,5 +1,4 @@
-import xbmcaddon
-import xbmcgui
+import xbmcaddon, xbmcgui
 
 addon = xbmcaddon.Addon()
 addonname = addon.getAddonInfo('name')
