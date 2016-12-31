@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Documents/Python/be.rijckaert.tim.kodiplayground/.idea/KodiTryOut.iml" filepath="$USER_HOME$/Documents/Python/be.rijckaert.tim.kodiplayground/.idea/KodiTryOut.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/plugin.video.kodiplayground.iml" filepath="$PROJECT_DIR$/.idea/plugin.video.kodiplayground.iml" />
     </modules>
   </component>
 </project>
