@@ -6,11 +6,13 @@
 
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.beautifulsoup4" version="4.3.2"/>
+        <import addon="script.module.requests" version="2.9.1"/>
     </requires>
 
     <extension point="xbmc.python.script"
                library="addon.py">
-        <provides>video</provides>
+        <provides>audio</provides>
     </extension>
 
     <extension point="xbmc.addon.metadata">
@@ -30,6 +32,7 @@
         <news>This is just a try out kodi plugin to see what is possible</news>
         <website>http://www.dieisernogniet.be</website>
         <email>tim.rijckaert@gmail.com</email>
+        <platform>all</platform>
         <source>git://github.com/timrijckaert/</source>
     </extension>
 </addon>
