@@ -5,7 +5,4 @@ from resources.lib.utils.videochannel import get_all_video_channels
 def get_root_channels():
     radio_channels = get_all_radio_channels()
     video_channel = get_all_video_channels()
-    return {
-        {"RADIO", radio_channels},
-        {"TV", video_channel}
-    }
+    return {"TV": video_channel, "RADIO": radio_channels}
