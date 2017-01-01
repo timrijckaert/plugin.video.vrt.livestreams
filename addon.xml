@@ -26,6 +26,6 @@
         <website>http://www.vrt.be</website>
         <email>tim dot rijckaert at gmail com</email>
         <platform>all</platform>
-        <source>git://github.com/timrijckaert/</source>
+        <source>git://github.com/timrijckaert/plugin.video.vrt.livestreams.git</source>
     </extension>
 </addon>
