@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.kodiplayground"
+<addon id="plugin.video.vrt.livestreams"
        name="VRT Livestreams"
        version="0.0.1"
        provider-name="Tim Rijckaert">
@@ -14,16 +14,15 @@
     </extension>
 
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">VRT Radioplus</summary>
-        <summary lang="nl">VRT Radioplus</summary>
-        <description lang="nl">Bekijk de publieke VRT live streams</description>
+        <summary lang="nl">VRT Livestreams</summary>
+        <description lang="nl">Bekijk/beluister de publieke VRT live streams</description>
         <language>nl</language>
         <platform>all</platform>
         <license>GNU General Public License, v2</license>
         <assets>
             <icon>icon.png</icon>
         </assets>
-        <news>Laat toe tot het bekijken van de live streams van de VRT</news>
+        <news>Laat toe tot het bekijken/beluisteren van de live streams van de VRT</news>
         <website>http://www.vrt.be</website>
         <email>tim dot rijckaert at gmail com</email>
         <platform>all</platform>

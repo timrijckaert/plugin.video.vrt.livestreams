@@ -21,11 +21,21 @@ ketnet = VideoChannel("Ketnet",
                       "http://images.vrt.be/orig/2016/05/29/419b3f11-2585-11e6-8682-00163edf843f.png",
                       "http://live.stream.vrt.be/vrt_events3_live/smil:vrt_events3_live.smil/playlist.m3u8")
 
+studio_brussel = VideoChannel("Studio Brussel Livestream",
+                              "http://images.vrt.be/orig/2016/05/27/65b13069-2430-11e6-8682-00163edf843f.png",
+                              "http://live.stream.vrt.be/vrt_stubru_live/smil:vrt_stubru_live.smil/playlist.m3u8")
+
+mnm = VideoChannel("MNM Livestream",
+                   "http://images.vrt.be/orig/2016/05/27/8004d7fb-2430-11e6-8682-00163edf843f.png",
+                   "http://live.stream.vrt.be/vrt_mnm_live/stream1296/playlist.m3u8")
+
 
 def get_all_video_channels():
     return [
         journaal,
         een,
         canvas,
-        ketnet
+        ketnet,
+        studio_brussel,
+        mnm
     ]
