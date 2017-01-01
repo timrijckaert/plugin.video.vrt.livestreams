@@ -25,7 +25,10 @@ def get_radio_list_items():
                                      iconImage=channel.picture,
                                      thumbnailImage=channel.picture,
                                      path=live_stream_url)
-        list_item.setInfo(type='audio', infoLabels={"title": live_stream_title, "tagline": channel.description})
+        list_item.setInfo(type='audio', infoLabels={
+            "title": live_stream_title,
+            "album": channel.description
+        })
         list_item.setProperty("isPlayable", 'true')
         radio_items.append((live_stream_url, list_item))
     return radio_items
