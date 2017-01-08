@@ -1,7 +1,7 @@
 class PlayList(object):
-    def __init__(self, channel_id, song):
+    def __init__(self, channel_id, songs):
         self.channel_id = channel_id
-        self.song = song
+        self.songs = songs
 
     def __str__(self):
-        return "%s" % self.song
+        return "Playlist for channel %s with %s songs" % (self.channel_id, len(self.songs))

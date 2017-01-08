@@ -6,6 +6,7 @@
 
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.skin.helper.artutils" version="1.0.0"/>
     </requires>
 
     <extension point="xbmc.python.pluginsource"
@@ -21,6 +22,7 @@
         <license>GNU General Public License, v2</license>
         <assets>
             <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
         </assets>
         <news>Laat toe tot het bekijken/beluisteren van de live streams van de VRT</news>
         <website>http://www.vrt.be</website>

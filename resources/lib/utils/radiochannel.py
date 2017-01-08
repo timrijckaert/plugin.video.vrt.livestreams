@@ -10,14 +10,14 @@ class RadioChannel(object):
 
 radio_1 = RadioChannel("11",
                        "Radio 1",
-                       "Altijd benieuwd",
+                       "Altijd Benieuwd",
                        "http://images.vrt.be/orig/2016/05/27/e4f31ec0-242f-11e6-8682-00163edf843f.png",
                        "http://images.vrt.be/orig/2016/05/24/ee500e75-216b-11e6-8682-00163edf843f.png",
                        "http://mp3.streampower.be/radio1.aac")
 
 radio_2 = RadioChannel("24",
                        "Radio 2",
-                       "De grootste familie",
+                       "De Grootste Familie",
                        "http://images.vrt.be/orig/2016/05/27/283dfce2-2430-11e6-8682-00163edf843f.png",
                        "http://images.vrt.be/orig/2014/10/28/34f08c3e-5ea2-11e4-aec2-00163edf75b7.jpg",
                        "http://mp3.streampower.be/ra2ovl.aac")
@@ -31,14 +31,14 @@ klara = RadioChannel("31",
 
 klara_continuo = RadioChannel("32",
                               "Klara Continuo",
-                              "Blijf verwonderd",
+                              "Blijf Verwonderd",
                               "http://images.vrt.be/orig/2016/05/29/5ea8af72-2585-11e6-8682-00163edf843f.png",
                               "http://images.vrt.be/orig/2014/08/14/b833f426-23b6-11e4-8e74-00163edf75b7.jpg",
                               "http://mp3.streampower.be/klaracontinuo.aac")
 
 studio_brussel = RadioChannel("41",
                               "Studio Brussel",
-                              "Life is music",
+                              "Life is Music",
                               "http://images.vrt.be/orig/2016/05/27/65b13069-2430-11e6-8682-00163edf843f.png",
                               "http://images.vrt.be/orig/2016/08/29/dfec2c7e-6df9-11e6-94b1-00163edf843f.jpg",
                               "http://mp3.streampower.be/stubru.aac")
@@ -66,7 +66,7 @@ ketnet_hits = RadioChannel("03",
 
 vrtnieuws = RadioChannel("13",
                          "VRT Nieuws",
-                         "",
+                         "Nieuwslus",
                          "http://images.vrt.be/orig/2016/05/29/8b20f674-2585-11e6-8682-00163edf843f.png",
                          "http://images.vrt.be/orig/2016/08/22/71b84de4-6838-11e6-94b1-00163edf843f.jpg",
                          "http://download.stream.vrt.be/apps/services_sac/published/web/fixed/11_11niws-snip_hi.mp3")

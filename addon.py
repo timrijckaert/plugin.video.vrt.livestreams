@@ -1,8 +1,11 @@
 import sys
+import urllib
 import urlparse
+
+import xbmc
 import xbmcgui
 import xbmcplugin
-from resources.lib.utils.debugger import start_debugger
+from resources.lib.utils.playlist_fetcher import get_playlist_for_channel
 from resources.lib.utils.radiochannel import get_all_radio_channels
 from resources.lib.utils.videochannel import get_all_video_channels
 
@@ -10,30 +13,37 @@ self = sys.argv[0]
 handle = int(sys.argv[1])
 qs = sys.argv[2]
 
-xbmcplugin.setPluginFanart(handle=handle,
-                           image="https://adfs.vrt.be/adfs/portal/illustration/illustration.jpg?id=4842578430EAB3509629B30BDB510E938D1E245AC53E323ED1DBBBC37E404DCC")
+DEBUG_LOG = "plugin.video.vrt.livestreams :::: "
+IS_IN_DEBUG = False
+if IS_IN_DEBUG:
+    from resources.lib.utils.debugger import start_debugger
 
-__in_debug__ = False
-
-if __in_debug__:
     start_debugger()
+
+
+def create_qs(url_params):
+    return self + '?' + urllib.urlencode(url_params)
 
 
 def get_radio_list_items():
     radio_items = []
     for channel in get_all_radio_channels():
         live_stream_title = channel.title
-        live_stream_url = channel.url
+        live_stream_url = create_qs({
+            'url': channel.url,
+            'channel_code': channel.channel_code
+        })
         list_item = xbmcgui.ListItem(label=live_stream_title,
                                      iconImage=channel.thumbnail_picture,
                                      thumbnailImage=channel.thumbnail_picture,
                                      path=live_stream_url)
-        list_item.setProperty("fanart_image", channel.fanart_picture)
-        list_item.setInfo(type='audio', infoLabels={
-            "title": live_stream_title,
-            "album": channel.description
-        })
-        list_item.setProperty("isPlayable", 'true')
+
+        # list_item.setInfo(type='music', infoLabels={
+        #     "title": songs[0].title,
+        #     "artist": songs[0].artist
+        # })
+        list_item.setLabel2(channel.description)
+        # list_item.setProperty("isPlayable", 'true')
         radio_items.append((live_stream_url, list_item))
     return radio_items
 
@@ -61,7 +71,32 @@ def display_generic_playable_items(items):
 
 if len(qs) > 1:
     params = urlparse.parse_qs(qs[1:])
-    if params["content_type"][0] == "video":
-        display_generic_playable_items(get_video_list_items())
-    else:
-        display_generic_playable_items(get_radio_list_items())
+    xbmc.log("%s Params %s" % (DEBUG_LOG, params))
+    if "content_type" in params:
+        if params["content_type"][0] == "video":
+            display_generic_playable_items(get_video_list_items())
+        else:
+            display_generic_playable_items(get_radio_list_items())
+
+    if "url" in params:
+        xbmc.log(str(params))
+        url_ = params["url"][0]
+        xbmc.Player().play(url_)
+
+        channel_code = params["channel_code"][0]
+        playlist_for_channel = get_playlist_for_channel(channel_code)
+        songs = playlist_for_channel.songs
+
+        play_list = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        play_list.clear()
+        play_list.unshuffle()
+        if len(songs) > 0:
+            for i, song in enumerate(songs):
+                # xbmc.log("Adding playlist item: %s" % song)
+                play_list.add(url=create_qs({
+                    'url': url_,
+                    'channel_code': channel_code
+                }), listitem=xbmcgui.ListItem(label="%s - %s" % (song.artist, song.title),
+                                              label2=song.artist,
+                                              iconImage=song.image_url,
+                                              thumbnailImage=song.image_url))

@@ -14,8 +14,8 @@ def get_playlist_for_channel(channel_id):
     artists = [a[0] for a in [artist_list[0].values() for artist_list in playlist_for_channel]]
     song_names = [s[0] for s in [song_list[1].values() for song_list in playlist_for_channel]]
     artist_with_song_tuple = zip(artists, song_names)
-    return [PlayList(channel_id, Song(tpl[0], tpl[1], get_itunes_picture_url_for_song(tpl[0], tpl[1])))
-            for tpl in artist_with_song_tuple]
+    songs = [Song(tpl[0], tpl[1], get_itunes_picture_url_for_song(tpl[0], tpl[1])) for tpl in artist_with_song_tuple]
+    return PlayList(channel_id, songs)
 
 
 def get_picture_url_for_song(artist_name, song_title):
@@ -34,13 +34,15 @@ def get_picture_url_for_song(artist_name, song_title):
 
 
 def get_itunes_picture_url_for_song(artist_name, song_title):
-    itunes_song_data_json = requests.get("https://itunes.apple.com/search",
-                                         params={"term": "%s %s" % (artist_name, song_title),
-                                                 "country": "BE",
-                                                 "entity": "song",
-                                                 "limit": "1"}).json()
-    if int(itunes_song_data_json["resultCount"]) >= 1:
-        return itunes_song_data_json["results"][0]["artworkUrl100"].replace("100x100", "500x500")
+    itunes_song_data_request = requests.get("https://itunes.apple.com/search",
+                                            params={"term": "%s %s" % (artist_name, song_title),
+                                                    "country": "BE",
+                                                    "entity": "song",
+                                                    "limit": "1"})
+    if itunes_song_data_request.ok:
+        itunes_song_data_json = itunes_song_data_request.json()
+        if int(itunes_song_data_json["resultCount"]) >= 1:
+            return itunes_song_data_json["results"][0]["artworkUrl100"].replace("100x100", "500x500")
 
     return None
 
