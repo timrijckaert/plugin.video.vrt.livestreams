@@ -37,7 +37,8 @@ def get_itunes_picture_url_for_song(artist_name, song_title):
     itunes_song_data_json = requests.get("https://itunes.apple.com/search",
                                          params={"term": "%s %s" % (artist_name, song_title),
                                                  "country": "BE",
-                                                 "entity": "song", "limit": "1"}).json()
+                                                 "entity": "song",
+                                                 "limit": "1"}).json()
     if int(itunes_song_data_json["resultCount"]) >= 1:
         return itunes_song_data_json["results"][0]["artworkUrl100"].replace("100x100", "500x500")
 
@@ -53,7 +54,3 @@ def get_json(path, params=None, headers=None):
     return requests.get("%s%s" % (BASE_SERVICE_VRT_URL, path),
                         params=params,
                         headers=headers).json()
-
-
-playlist = get_playlist_for_channel("11")
-print playlist

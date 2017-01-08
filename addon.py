@@ -10,6 +10,9 @@ self = sys.argv[0]
 handle = int(sys.argv[1])
 qs = sys.argv[2]
 
+xbmcplugin.setPluginFanart(handle=handle,
+                           image="https://adfs.vrt.be/adfs/portal/illustration/illustration.jpg?id=4842578430EAB3509629B30BDB510E938D1E245AC53E323ED1DBBBC37E404DCC")
+
 __in_debug__ = False
 
 if __in_debug__:
@@ -22,9 +25,10 @@ def get_radio_list_items():
         live_stream_title = channel.title
         live_stream_url = channel.url
         list_item = xbmcgui.ListItem(label=live_stream_title,
-                                     iconImage=channel.picture,
-                                     thumbnailImage=channel.picture,
+                                     iconImage=channel.thumbnail_picture,
+                                     thumbnailImage=channel.thumbnail_picture,
                                      path=live_stream_url)
+        list_item.setProperty("fanart_image", channel.fanart_picture)
         list_item.setInfo(type='audio', infoLabels={
             "title": live_stream_title,
             "album": channel.description
@@ -40,10 +44,11 @@ def get_video_list_items():
         live_stream_title = channel.title
         live_stream_url = channel.video_url
         list_item = xbmcgui.ListItem(label=live_stream_title,
-                                     iconImage=channel.picture,
-                                     thumbnailImage=channel.picture,
+                                     iconImage=channel.thumbnail_picture,
+                                     thumbnailImage=channel.thumbnail_picture,
                                      path=live_stream_url)
         list_item.setInfo(type='video', infoLabels={"title": live_stream_title})
+        list_item.setProperty("fanart_image", channel.fanart_picture)
         list_item.setProperty("isPlayable", 'true')
         video_items.append((live_stream_url, list_item))
     return video_items
