@@ -16,6 +16,10 @@ Available channels include:
 * Ketnet Hits
 * VRT Nieuws
 
+With playlist support
+
+![Radio 2 playlist example](img/playlist.png "Radio 2 playlist example")
+
 ##TV
 
 Available channels include
@@ -30,4 +34,4 @@ Available channels include
 
 ##Installation
 
-TODO make a releasable zip or publish to repo
+TODO make a releasable zip and publish to repo
