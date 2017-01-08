@@ -33,17 +33,12 @@ def get_radio_list_items():
             'url': channel.url,
             'channel_code': channel.channel_code
         })
+
         list_item = xbmcgui.ListItem(label=live_stream_title,
+                                     label2=channel.description,
                                      iconImage=channel.thumbnail_picture,
                                      thumbnailImage=channel.thumbnail_picture,
                                      path=live_stream_url)
-
-        # list_item.setInfo(type='music', infoLabels={
-        #     "title": songs[0].title,
-        #     "artist": songs[0].artist
-        # })
-        list_item.setLabel2(channel.description)
-        # list_item.setProperty("isPlayable", 'true')
         radio_items.append((live_stream_url, list_item))
     return radio_items
 
@@ -79,7 +74,6 @@ if len(qs) > 1:
             display_generic_playable_items(get_radio_list_items())
 
     if "url" in params:
-        xbmc.log(str(params))
         url_ = params["url"][0]
         xbmc.Player().play(url_)
 
@@ -91,8 +85,7 @@ if len(qs) > 1:
         play_list.clear()
         play_list.unshuffle()
         if len(songs) > 0:
-            for i, song in enumerate(songs):
-                # xbmc.log("Adding playlist item: %s" % song)
+            for song in songs:
                 play_list.add(url=create_qs({
                     'url': url_,
                     'channel_code': channel_code
