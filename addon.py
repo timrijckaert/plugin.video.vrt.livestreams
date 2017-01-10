@@ -1,35 +1,25 @@
 import sys
-import urllib
-import urlparse
-
 import xbmc
 import xbmcgui
 import xbmcplugin
-from resources.lib.utils.playlist_fetcher import get_playlist_for_channel
-from resources.lib.utils.radiochannel import get_all_radio_channels
-from resources.lib.utils.videochannel import get_all_video_channels
+from resources.lib.models.constants import ACTIONS
+from resources.lib.models.radiochannel import get_all_radio_channels
+from resources.lib.models.videochannel import get_all_video_channels
+from resources.lib.service.playlistfetcher import get_playlist_for_channel
+from resources.lib.utils.debugger import Debugger
+from resources.lib.utils.utils import Utils
 
 self = sys.argv[0]
-handle = int(sys.argv[1])
+addon_handle = int(sys.argv[1])
 qs = sys.argv[2]
-
-DEBUG_LOG = "plugin.video.vrt.livestreams :::: "
-IS_IN_DEBUG = False
-if IS_IN_DEBUG:
-    from resources.lib.utils.debugger import start_debugger
-
-    start_debugger()
-
-
-def create_qs(url_params):
-    return self + '?' + urllib.urlencode(url_params)
 
 
 def get_radio_list_items():
     radio_items = []
     for channel in get_all_radio_channels():
         live_stream_title = channel.title
-        live_stream_url = create_qs({
+        live_stream_url = utils.create_qs(self, {
+            'action': ACTIONS["radio_list_item_clicked"],
             'url': channel.url,
             'channel_code': channel.channel_code
         })
@@ -39,6 +29,7 @@ def get_radio_list_items():
                                      iconImage=channel.thumbnail_picture,
                                      thumbnailImage=channel.thumbnail_picture,
                                      path=live_stream_url)
+        list_item.setProperty("fanart_image", channel.fanart_picture)
         radio_items.append((live_stream_url, list_item))
     return radio_items
 
@@ -60,25 +51,27 @@ def get_video_list_items():
 
 
 def display_generic_playable_items(items):
-    xbmcplugin.addDirectoryItems(handle=handle, items=items, totalItems=len(items))
-    xbmcplugin.endOfDirectory(handle, True)
+    xbmcplugin.addDirectoryItems(handle=addon_handle, items=items, totalItems=len(items))
+    xbmcplugin.endOfDirectory(addon_handle, True)
 
+
+if __name__ == "__main__":
+    utils = Utils()
+    debugger = Debugger()
 
 if len(qs) > 1:
-    params = urlparse.parse_qs(qs[1:])
-    xbmc.log("%s Params %s" % (DEBUG_LOG, params))
-    if "content_type" in params:
-        if params["content_type"][0] == "video":
+    action = utils.get_action(qs)
+    xbmc.log("Action %s" % action)
+
+    if action is None:
+        if utils.content_type == 'video':
             display_generic_playable_items(get_video_list_items())
         else:
             display_generic_playable_items(get_radio_list_items())
 
-    if "url" in params:
-        url_ = params["url"][0]
-        xbmc.Player().play(url_)
-
-        channel_code = params["channel_code"][0]
-        playlist_for_channel = get_playlist_for_channel(channel_code)
+    if action == ACTIONS["radio_list_item_clicked"]:
+        xbmc.Player().play(utils.url)
+        playlist_for_channel = get_playlist_for_channel(utils.channel_code)
         songs = playlist_for_channel.songs
 
         play_list = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
@@ -86,10 +79,8 @@ if len(qs) > 1:
         play_list.unshuffle()
         if len(songs) > 0:
             for song in songs:
-                play_list.add(url=create_qs({
-                    'url': url_,
-                    'channel_code': channel_code
-                }), listitem=xbmcgui.ListItem(label="%s - %s" % (song.artist, song.title),
-                                              label2=song.artist,
-                                              iconImage=song.image_url,
-                                              thumbnailImage=song.image_url))
+                play_list.add(url=utils.construct_known_params(self),
+                              listitem=xbmcgui.ListItem(label="%s - %s" % (song.artist, song.title),
+                                                        label2=song.artist,
+                                                        iconImage=song.image_url,
+                                                        thumbnailImage=song.image_url))

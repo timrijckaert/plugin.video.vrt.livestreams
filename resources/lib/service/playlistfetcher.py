@@ -1,7 +1,7 @@
 import requests
 
-from resources.lib.utils.playlist import PlayList
-from resources.lib.utils.song import Song
+from resources.lib.models.playlist import PlayList
+from resources.lib.models.song import Song
 
 BASE_SERVICE_VRT_URL = "http://services.vrt.be/"
 
